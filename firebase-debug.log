@@ -1,0 +1,125 @@
+[debug] [2024-10-18T21:18:14.577Z] ----------------------------------------------------------------------
+[debug] [2024-10-18T21:18:14.587Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2024-10-18T21:18:14.588Z] CLI Version:   13.22.1
+[debug] [2024-10-18T21:18:14.588Z] Platform:      linux
+[debug] [2024-10-18T21:18:14.588Z] Node Version:  v20.18.0
+[debug] [2024-10-18T21:18:14.588Z] Time:          Fri Oct 18 2024 14:18:14 GMT-0700 (Pacific Daylight Time)
+[debug] [2024-10-18T21:18:14.588Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-18T21:18:14.767Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-18T21:18:14.768Z] > authorizing via signed-in user (amshen.hugh@gmail.com)
+[debug] [2024-10-18T21:18:14.769Z] [iam] checking project hughhughbangbangboom for permissions ["firebase.projects.get"]
+[debug] [2024-10-18T21:18:14.771Z] Checked if tokens are valid: false, expires at: 1729229337433
+[debug] [2024-10-18T21:18:14.771Z] Checked if tokens are valid: false, expires at: 1729229337433
+[debug] [2024-10-18T21:18:14.772Z] > refreshing access token with scopes: []
+[debug] [2024-10-18T21:18:14.774Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-18T21:18:14.774Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-18T21:18:24.783Z] *** [apiv2] error from fetch(https://www.googleapis.com/oauth2/v3/token, {"headers":{},"method":"POST","body":{"_overheadLength":545,"_valueLength":212,"_valuesToMeasure":[],"writable":false,"readable":true,"dataSize":0,"maxDataSize":2097152,"pauseStreams":true,"_released":true,"_streams":[],"_currentStream":null,"_insideLoop":false,"_pendingNext":false,"_boundary":"--------------------------181334678900988567344677","_events":{},"_eventsCount":1}}): FetchError: request to https://www.googleapis.com/oauth2/v3/token failed, reason: getaddrinfo EAI_AGAIN www.googleapis.com
+[debug] [2024-10-18T21:18:24.784Z] [iam] error while checking permissions, command may fail: FirebaseError: Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-10-18T21:18:24.784Z] Checked if tokens are valid: false, expires at: 1729229337433
+[debug] [2024-10-18T21:18:24.784Z] Checked if tokens are valid: false, expires at: 1729229337433
+[debug] [2024-10-18T21:18:24.784Z] > refreshing access token with scopes: []
+[debug] [2024-10-18T21:18:24.785Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-10-18T21:18:24.785Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-10-18T21:18:34.793Z] *** [apiv2] error from fetch(https://www.googleapis.com/oauth2/v3/token, {"headers":{},"method":"POST","body":{"_overheadLength":545,"_valueLength":212,"_valuesToMeasure":[],"writable":false,"readable":true,"dataSize":0,"maxDataSize":2097152,"pauseStreams":true,"_released":true,"_streams":[],"_currentStream":null,"_insideLoop":false,"_pendingNext":false,"_boundary":"--------------------------541254923575621881401421","_events":{},"_eventsCount":1}}): FetchError: request to https://www.googleapis.com/oauth2/v3/token failed, reason: getaddrinfo EAI_AGAIN www.googleapis.com
+[debug] [2024-10-18T21:18:34.793Z] Authentication Error: Your credentials are no longer valid. Please run firebase login --reauth
+
+For CI servers and headless environments, generate a new token with firebase login:ci
+[debug] [2024-10-18T21:18:39.805Z] Error: Timed out.
+    at Timeout._onTimeout (/usr/lib/node_modules/firebase-tools/lib/utils.js:268:49)
+    at listOnTimeout (node:internal/timers:581:17)
+    at process.processTimers (node:internal/timers:519:7)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-10-18T22:02:13.571Z] ----------------------------------------------------------------------
+[debug] [2024-10-18T22:02:13.578Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2024-10-18T22:02:13.579Z] CLI Version:   13.22.1
+[debug] [2024-10-18T22:02:13.579Z] Platform:      linux
+[debug] [2024-10-18T22:02:13.580Z] Node Version:  v20.18.0
+[debug] [2024-10-18T22:02:13.580Z] Time:          Fri Oct 18 2024 15:02:13 GMT-0700 (Pacific Daylight Time)
+[debug] [2024-10-18T22:02:13.580Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-18T22:02:13.848Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-18T22:02:13.849Z] > authorizing via signed-in user (amshen.hugh@gmail.com)
+[debug] [2024-10-18T22:02:13.850Z] [iam] checking project hughhughbangbangboom for permissions ["firebase.projects.get"]
+[debug] [2024-10-18T22:02:13.852Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:13.853Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:13.855Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions [none]
+[debug] [2024-10-18T22:02:13.856Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions x-goog-quota-user=projects/hughhughbangbangboom
+[debug] [2024-10-18T22:02:13.856Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-18T22:02:14.203Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions 200
+[debug] [2024-10-18T22:02:14.203Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-18T22:02:14.204Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:14.204Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:14.205Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom [none]
+[debug] [2024-10-18T22:02:14.510Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom 200
+[debug] [2024-10-18T22:02:14.510Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom {"projectId":"hughhughbangbangboom","projectNumber":"54432640328","displayName":"HughHughbangbangboom","name":"projects/hughhughbangbangboom","resources":{"hostingSite":"hughhughbangbangboom"},"state":"ACTIVE","etag":"1_c239d737-bcdd-4db1-8afb-43f0cdbe1beb"}
+[info] 
+[info] === Serving from '/home/amshen'...
+[info] 
+[debug] [2024-10-18T22:02:14.517Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:14.517Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:14.518Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites 
+[debug] [2024-10-18T22:02:15.245Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites 200
+[debug] [2024-10-18T22:02:15.245Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites {"sites":[{"name":"projects/hughhughbangbangboom/sites/hughhughbangbangboom","defaultUrl":"https://hughhughbangbangboom.web.app","appId":"1:54432640328:web:b822682cf0d7a9b5e2177d","type":"DEFAULT_SITE"}]}
+[debug] [2024-10-18T22:02:15.246Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:15.246Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:15.246Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config [none]
+[debug] [2024-10-18T22:02:15.630Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config 200
+[debug] [2024-10-18T22:02:15.630Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config {"projectId":"hughhughbangbangboom","appId":"1:54432640328:web:b822682cf0d7a9b5e2177d","storageBucket":"hughhughbangbangboom.appspot.com","apiKey":"AIzaSyD6OHk-hDadn-nGe3_9eIQyPxHOFCp5O-I","authDomain":"hughhughbangbangboom.firebaseapp.com","messagingSenderId":"54432640328"}
+[debug] [2024-10-18T22:02:15.679Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:15.679Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:02:15.679Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom [none]
+[debug] [2024-10-18T22:02:16.067Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom 200
+[debug] [2024-10-18T22:02:16.068Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom {"projectId":"hughhughbangbangboom","projectNumber":"54432640328","displayName":"HughHughbangbangboom","name":"projects/hughhughbangbangboom","resources":{"hostingSite":"hughhughbangbangboom"},"state":"ACTIVE","etag":"1_c239d737-bcdd-4db1-8afb-43f0cdbe1beb"}
+[info] i  hosting[hughhughbangbangboom]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting[hughhughbangbangboom]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [18/Oct/2024:22:02:32 +0000] "GET / HTTP/1.1" 404 139 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Oct/2024:22:02:32 +0000] \"GET / HTTP/1.1\" 404 139 \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\""}}
+[info] Shutting down...
+[debug] [2024-10-18T22:08:56.250Z] ----------------------------------------------------------------------
+[debug] [2024-10-18T22:08:56.254Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2024-10-18T22:08:56.255Z] CLI Version:   13.22.1
+[debug] [2024-10-18T22:08:56.255Z] Platform:      linux
+[debug] [2024-10-18T22:08:56.255Z] Node Version:  v20.18.0
+[debug] [2024-10-18T22:08:56.255Z] Time:          Fri Oct 18 2024 15:08:56 GMT-0700 (Pacific Daylight Time)
+[debug] [2024-10-18T22:08:56.256Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-10-18T22:08:56.485Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-10-18T22:08:56.486Z] > authorizing via signed-in user (amshen.hugh@gmail.com)
+[debug] [2024-10-18T22:08:56.486Z] [iam] checking project hughhughbangbangboom for permissions ["firebase.projects.get"]
+[debug] [2024-10-18T22:08:56.488Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:56.488Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:56.490Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions [none]
+[debug] [2024-10-18T22:08:56.491Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions x-goog-quota-user=projects/hughhughbangbangboom
+[debug] [2024-10-18T22:08:56.491Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-18T22:08:56.896Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions 200
+[debug] [2024-10-18T22:08:56.896Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/hughhughbangbangboom:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2024-10-18T22:08:56.898Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:56.898Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:56.898Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom [none]
+[debug] [2024-10-18T22:08:57.232Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom 200
+[debug] [2024-10-18T22:08:57.232Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom {"projectId":"hughhughbangbangboom","projectNumber":"54432640328","displayName":"HughHughbangbangboom","name":"projects/hughhughbangbangboom","resources":{"hostingSite":"hughhughbangbangboom"},"state":"ACTIVE","etag":"1_c239d737-bcdd-4db1-8afb-43f0cdbe1beb"}
+[info] 
+[info] === Serving from '/home/amshen/web'...
+[info] 
+[debug] [2024-10-18T22:08:57.255Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:57.255Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:57.256Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites 
+[debug] [2024-10-18T22:08:58.049Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites 200
+[debug] [2024-10-18T22:08:58.049Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/hughhughbangbangboom/sites {"sites":[{"name":"projects/hughhughbangbangboom/sites/hughhughbangbangboom","defaultUrl":"https://hughhughbangbangboom.web.app","appId":"1:54432640328:web:b822682cf0d7a9b5e2177d","type":"DEFAULT_SITE"}]}
+[debug] [2024-10-18T22:08:58.049Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:58.049Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:58.050Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config [none]
+[debug] [2024-10-18T22:08:58.559Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config 200
+[debug] [2024-10-18T22:08:58.560Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom/webApps/1:54432640328:web:b822682cf0d7a9b5e2177d/config {"projectId":"hughhughbangbangboom","appId":"1:54432640328:web:b822682cf0d7a9b5e2177d","storageBucket":"hughhughbangbangboom.appspot.com","apiKey":"AIzaSyD6OHk-hDadn-nGe3_9eIQyPxHOFCp5O-I","authDomain":"hughhughbangbangboom.firebaseapp.com","messagingSenderId":"54432640328"}
+[debug] [2024-10-18T22:08:58.610Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:58.611Z] Checked if tokens are valid: true, expires at: 1729290326745
+[debug] [2024-10-18T22:08:58.611Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom [none]
+[debug] [2024-10-18T22:08:58.972Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom 200
+[debug] [2024-10-18T22:08:58.972Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/hughhughbangbangboom {"projectId":"hughhughbangbangboom","projectNumber":"54432640328","displayName":"HughHughbangbangboom","name":"projects/hughhughbangbangboom","resources":{"hostingSite":"hughhughbangbangboom"},"state":"ACTIVE","etag":"1_c239d737-bcdd-4db1-8afb-43f0cdbe1beb"}
+[info] i  hosting[hughhughbangbangboom]: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] ✔  hosting[hughhughbangbangboom]: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[info] i  hosting: 127.0.0.1 - - [18/Oct/2024:22:09:07 +0000] "GET / HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Oct/2024:22:09:07 +0000] \"GET / HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [18/Oct/2024:22:09:07 +0000] "GET /style.css HTTP/1.1" 200 - "http://localhost:5000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [18/Oct/2024:22:09:07 +0000] \"GET /style.css HTTP/1.1\" 200 - \"http://localhost:5000/\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36\""}}

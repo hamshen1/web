@@ -1,0 +1,110 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', Times, serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 2px solid #000;
+}
+
+.nyt-title {
+    font-family: 'Cheltenham', 'Times New Roman', serif;
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1.1;
+}
+
+.sub-heading {
+    font-size: 1.2rem;
+    font-style: italic;
+    letter-spacing: 0.1rem;
+}
+
+.info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+}
+
+.issue-details, .date-and-location, .price {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.date-and-location p {
+    font-weight: bold;
+}
+
+.content {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.left-column, .right-column {
+    width: 25%;
+    padding: 0 10px;
+}
+
+.main-column {
+    width: 50%;
+    padding: 0 10px;
+    text-align: center;
+}
+
+.headline {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.side-headline {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.placeholder-image {
+    width: 100%;
+    height: 300px;
+    border: 1px dashed #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    color: #999;
+    margin: 20px 0;
+}
+
+.left-column p, .right-column p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.divider {
+    border: 1px solid #000;
+    margin: 20px 0;
+}
