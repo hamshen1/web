@@ -1,117 +1,105 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const svgNS = "http://www.w3.org/2000/svg";
-    const container = document.getElementById('image-group');
-    const transitionArea = document.querySelector('.image-transition');
-    let pieces = [];
-    const gridSize = 10;
+    const canvas = document.getElementById('animationCanvas');
+    const ctx = canvas.getContext('2d');
+    const canvasSize = 400;
+    canvas.width = canvasSize;
+    canvas.height = canvasSize;
+    
+    let isTransitioningToSecond = false;
+    const blackCircle = { radius: 10, maxRadius: canvasSize / 2 };
+    
+    // Divide SVG into random shapes (for both SVGs)
+    function generateRandomPieces(pieceCount = 12, isSecondSVG = false) {
+        const pieces = [];
+        for (let i = 0; i < pieceCount; i++) {
+            const randomShape = {
+                x: Math.random() * canvasSize,
+                y: Math.random() * canvasSize,
+                size: Math.random() * 40 + 20,
+                angle: Math.random() * Math.PI * 2,
+                isSecondSVG: isSecondSVG
+            };
+            pieces.push(randomShape);
+        }
+        return pieces;
+    }
 
-    // Function to create image pieces
-    function createImagePieces(imageSrc, isSecondImage = false) {
-        const image = document.createElementNS(svgNS, 'image');
-        image.setAttributeNS(null, 'href', imageSrc);
-        image.setAttributeNS(null, 'width', '100');
-        image.setAttributeNS(null, 'height', '100');
-        image.id = 'image-' + (isSecondImage ? 'two' : 'one');
-        container.appendChild(image);
+    const svg1Pieces = generateRandomPieces(12);
+    const svg2Pieces = generateRandomPieces(12, true);
 
-        for (let y = 0; y < gridSize; y++) {
-            for (let x = 0; x < gridSize; x++) {
-                const piece = document.createElementNS(svgNS, 'use');
-                piece.setAttributeNS(null, 'href', '#' + image.id);
-                piece.setAttributeNS(null, 'x', -x * (100 / gridSize));
-                piece.setAttributeNS(null, 'y', -y * (100 / gridSize));
-                piece.setAttributeNS(null, 'width', '100');
-                piece.setAttributeNS(null, 'height', '100');
+    // Draw first SVG pieces spiraling inward
+    function animateFirstSVG(pieces, proximity) {
+        pieces.forEach(piece => {
+            const distance = Math.max(0, 1 - proximity); // Shrink as mouse moves in
+            const spiralRadius = piece.size * distance * 3;
+            const pieceX = canvasSize / 2 + spiralRadius * Math.cos(piece.angle);
+            const pieceY = canvasSize / 2 + spiralRadius * Math.sin(piece.angle);
+            
+            ctx.fillStyle = 'gray';
+            ctx.beginPath();
+            ctx.arc(pieceX, pieceY, piece.size * distance, 0, Math.PI * 2);
+            ctx.fill();
+        });
+    }
 
-                const clipPath = document.createElementNS(svgNS, 'clipPath');
-                clipPath.id = `clip-${x}-${y}-${isSecondImage ? 'two' : 'one'}`;
-                const clipRect = document.createElementNS(svgNS, 'rect');
-                clipRect.setAttributeNS(null, 'x', x * (100 / gridSize));
-                clipRect.setAttributeNS(null, 'y', y * (100 / gridSize));
-                clipRect.setAttributeNS(null, 'width', 100 / gridSize);
-                clipRect.setAttributeNS(null, 'height', 100 / gridSize);
-                clipPath.appendChild(clipRect);
-                container.appendChild(clipPath);
+    // Draw second SVG expanding outward
+    function animateSecondSVG(pieces, proximity) {
+        const expansion = 1 + proximity * 0.2; // Expand 20% more
+        pieces.forEach(piece => {
+            const pieceX = piece.x * expansion;
+            const pieceY = piece.y * expansion;
 
-                const g = document.createElementNS(svgNS, 'g');
-                g.appendChild(piece);
-                g.setAttributeNS(null, 'clip-path', `url(#${clipPath.id})`);
+            ctx.fillStyle = 'lightblue';
+            ctx.fillRect(pieceX, pieceY, piece.size, piece.size);
+        });
+    }
 
-                if (isSecondImage) {
-                    g.style.opacity = '0';
-                    g.style.transform = 'scale(0.1)';
-                } else {
-                    g.style.opacity = '1';
-                    g.style.transform = 'scale(1)';
-                }
+    // Draw black circle, grows or shrinks based on proximity
+    function drawBlackCircle(proximity) {
+        if (isTransitioningToSecond) {
+            blackCircle.radius -= 5;
+        } else {
+            blackCircle.radius += proximity * 10;
+        }
+        if (blackCircle.radius < 0) blackCircle.radius = 0;
+        if (blackCircle.radius > blackCircle.maxRadius) blackCircle.radius = blackCircle.maxRadius;
 
-                container.appendChild(g);
-                pieces.push({ element: g, isSecond: isSecondImage, x, y });
+        ctx.fillStyle = 'black';
+        ctx.beginPath();
+        ctx.arc(canvasSize / 2, canvasSize / 2, blackCircle.radius, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Handle mouse move proximity
+    function handleMouseMove(e) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const rect = canvas.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        const distanceFromCenter = Math.sqrt(
+            Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2)
+        );
+        const proximity = Math.max(0, 1 - distanceFromCenter / (canvasSize / 2));
+
+        // Animate based on proximity
+        if (!isTransitioningToSecond) {
+            animateFirstSVG(svg1Pieces, proximity);
+            drawBlackCircle(proximity);
+            if (proximity === 1) {
+                isTransitioningToSecond = true;  // Transition to second SVG once first finishes
             }
+        } else {
+            animateSecondSVG(svg2Pieces, proximity);
+            drawBlackCircle(0); // Shrink black circle to disappear
         }
     }
 
-    // Function to shuffle pieces and scale properly
-    function shufflePieces() {
-        const centerX = gridSize / 2;
-        const centerY = gridSize / 2;
-        pieces.forEach(piece => {
-            const distance = Math.sqrt(Math.pow(piece.x - centerX, 2) + Math.pow(piece.y - centerY, 2));
-            const maxDistance = Math.sqrt(Math.pow(gridSize / 2, 2) + Math.pow(gridSize / 2, 2));
-            const normalizedDistance = distance / maxDistance;
+    // Set up event listeners
+    canvas.addEventListener('mousemove', handleMouseMove);
 
-            piece.element.style.transition = `all ${0.5 + normalizedDistance * 0.5}s ease-in-out`;
-
-            if (!piece.isSecond) {
-                // Scale the pieces down and move towards the center for first image
-                const translateX = (centerX - piece.x) * 20;
-                const translateY = (centerY - piece.y) * 20;
-                piece.element.style.transform = `scale(0.1) translate(${translateX}px, ${translateY}px)`;
-            } else {
-                // Prepare the second image pieces
-                piece.element.style.transform = `scale(1) translate(0, 0)`;
-            }
-        });
-    }
-
-    function resetPieces() {
-        // Reset pieces back to their original state (if needed)
-        pieces.forEach(piece => {
-            if (piece.isSecond) {
-                piece.element.style.opacity = '0';
-                piece.element.style.transform = 'scale(0.1)';
-            } else {
-                piece.element.style.opacity = '1';
-                piece.element.style.transform = 'scale(1)';
-            }
-        });
-    }
-
-    // Function to handle transition from shuffled first image to the second image
-    function triggerTransition() {
-        shufflePieces(); // Shuffle pieces to the center and shrink them
-
-        setTimeout(() => {
-            pieces.forEach(piece => {
-                if (piece.isSecond) {
-                    // Show second image pieces
-                    piece.element.style.opacity = '1';
-                } else {
-                    // Hide first image pieces
-                    piece.element.style.opacity = '0';
-                }
-            });
-        }, 500); // Allow some time for the shuffle before transitioning
-    }
-
-    // Initialize pieces for both images
-    createImagePieces('einstein1.svg');
-    createImagePieces('einstein2.svg', true);
-
-    // Shuffle pieces for the first image on load
-    shufflePieces();
-
-    // Event listeners for hover transitions
-    transitionArea.addEventListener('mouseenter', triggerTransition);
-    transitionArea.addEventListener('mouseleave', resetPieces);
+    // Initial draw
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    animateFirstSVG(svg1Pieces, 0);
+    drawBlackCircle(0);
 });
