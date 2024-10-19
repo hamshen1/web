@@ -87,6 +87,40 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
+.left-column p, .right-column p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.divider {
+    border: 1px solid #000;
+    margin: 20px 0;
+}
+
+/* Updated Styling for Image Transition */
+.image-transition {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.einstein-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+}
+
+#image-two {
+    opacity: 0;
+}
+
 .placeholder-image {
     width: 100%;
     height: 300px;
@@ -96,15 +130,5 @@ body {
     align-items: center;
     font-style: italic;
     color: #999;
-    margin: 20px 0;
-}
-
-.left-column p, .right-column p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-.divider {
-    border: 1px solid #000;
     margin: 20px 0;
 }
