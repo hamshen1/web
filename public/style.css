@@ -43,6 +43,14 @@ body {
     background-color: #f5f5f5;
 }
 
+.issue-details, .date-and-location, .price {
+    font-size: 0.9rem;
+}
+
+.issue-details p, .date-and-location p, .price p {
+    margin: 0;
+}
+
 .content {
     display: flex;
     max-width: 1200px;
@@ -71,7 +79,7 @@ body {
     margin-bottom: 30px;
 }
 
-.svg-animation-container {
+.canvas-animation-container {
     width: 100%;
     max-width: 600px;
     height: 400px;
@@ -84,4 +92,18 @@ body {
 .divider {
     border: 1px solid #000;
     margin: 20px 0;
+}
+
+.side-headline {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.issue-details, .date-and-location, .price {
+    font-size: 0.9rem;
+}
+
+.issue-details p, .date-and-location p, .price p {
+    margin: 0;
 }
