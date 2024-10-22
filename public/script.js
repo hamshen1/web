@@ -1,219 +1,244 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const canvas = document.getElementById('animationCanvas');
-    const ctx = canvas.getContext('2d');
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-    const centerX = canvasWidth / 2;
-    const centerY = canvasHeight / 2;
+    const animationContainer = document.getElementById('animation-container');
+    const blackCircle = document.getElementById('black-circle');
+    const svg1Container = document.getElementById('svg1-container');
+    const svg2Container = document.getElementById('svg2-container');
 
-    const rows = 10; // Number of rows for the grid
-    const cols = 15; // Number of columns for the grid
-    const tileWidth = canvasWidth / cols;
-    const tileHeight = canvasHeight / rows;
-    const PROXIMITY_THRESHOLD = 0.5; // Threshold to switch phases (halfway)
-    const SPEEDUP_FACTOR_FIRST = 1.0; // Speed for first animation
-    const SPEEDUP_FACTOR_SECOND = 1.25; // Speed up second animation by 25%
-    const GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2; // Approximately 1.618
+    const containerWidth = animationContainer.clientWidth;
+    const containerHeight = animationContainer.clientHeight;
 
-    let tiles = [];
-    let img1 = new Image();
-    let img2 = new Image();
-    let isImagesLoaded = false;
-    let animationFrameId;
-    let currentPhase = 'first'; // 'first' or 'second'
+    // Define grid size (number of squares per row and column)
+    const gridRows = 10; // Adjust as needed
+    const gridCols = 10; // Adjust as needed
 
-    // Swapped images: First image is now 'einstein2.jpg', second is 'einstein1.jpg'
-    img1.src = 'einstein2.jpg'; // First image
-    img2.src = 'einstein1.jpg'; // Second image
+    const squareWidth = containerWidth / gridCols;
+    const squareHeight = containerHeight / gridRows;
 
-    let imagesLoaded = 0;
+    const maxCircleDiameter = Math.min(containerWidth, containerHeight) / 2;
+    const maxCircleRadius = maxCircleDiameter / 2;
 
-    // Load both images before starting
-    img1.onload = imgLoaded;
-    img2.onload = imgLoaded;
+    let isHovered = false;
+    let animationInProgress = false;
 
-    img1.onerror = function () {
-        console.error('Failed to load einstein2.jpg.');
-    };
+    let svg1Squares = []; // Array to hold all squares of first SVG
+    let svg2Squares = []; // Array to hold all squares of second SVG
 
-    img2.onerror = function () {
-        console.error('Failed to load einstein1.jpg.');
-    };
+    // Golden angle in degrees
+    const goldenAngle = 137.5;
 
-    function imgLoaded() {
-        imagesLoaded++;
-        if (imagesLoaded === 2) {
-            isImagesLoaded = true;
-            createTiles();
-            canvas.addEventListener('mousemove', handleMouseMove);
-            animate(0); // Start the animation with proximity 0
+    /**
+     * Function to create squares for a given SVG and append them to the specified container.
+     * @param {string} svgPath - Path to the SVG file.
+     * @param {HTMLElement} container - The container to append squares to.
+     * @returns {Promise<Array>} - Resolves with an array of square elements.
+     */
+    function createSquares(svgPath, container) {
+        return new Promise((resolve, reject) => {
+            // Create a canvas to extract SVG image data
+            const canvas = document.createElement('canvas');
+            canvas.width = containerWidth;
+            canvas.height = containerHeight;
+            const ctx = canvas.getContext('2d');
+
+            const img = new Image();
+            img.src = svgPath;
+
+            // Handle cross-origin issues if SVGs are hosted elsewhere
+            img.crossOrigin = 'Anonymous';
+
+            img.onload = function () {
+                // Draw SVG onto canvas
+                ctx.drawImage(img, 0, 0, containerWidth, containerHeight);
+
+                let squares = [];
+
+                for (let row = 0; row < gridRows; row++) {
+                    for (let col = 0; col < gridCols; col++) {
+                        const x = col * squareWidth;
+                        const y = row * squareHeight;
+
+                        // Create a new square div
+                        const square = document.createElement('div');
+                        square.classList.add('square');
+                        square.style.width = `${squareWidth}px`;
+                        square.style.height = `${squareHeight}px`;
+                        square.style.left = `${x}px`;
+                        square.style.top = `${y}px`;
+
+                        // Set the background image and position
+                        square.style.backgroundImage = `url('${svgPath}')`;
+                        square.style.backgroundPosition = `-${x}px -${y}px`;
+                        square.style.backgroundSize = `${containerWidth}px ${containerHeight}px`;
+
+                        // Assign a unique rotation angle based on the golden angle
+                        const index = row * gridCols + col;
+                        const rotationAngle = (index * goldenAngle) % 360; // Ensure angle stays within 0-360 degrees
+                        square.dataset.rotation = rotationAngle; // Store rotation angle in data attribute
+
+                        // Append the square to the container
+                        container.appendChild(square);
+                        squares.push(square);
+                    }
+                }
+
+                resolve(squares);
+            };
+
+            img.onerror = function () {
+                console.error(`Failed to load SVG image from path: ${svgPath}`);
+                reject(`Failed to load SVG image from path: ${svgPath}`);
+            };
+        });
+    }
+
+    /**
+     * Initialize the animation by creating squares for both SVGs.
+     */
+    async function initializeAnimation() {
+        try {
+            // Create squares for first SVG
+            svg1Squares = await createSquares('einstein1.svg', svg1Container);
+            // Ensure svg1Container is visible
+            svg1Container.classList.remove('hidden');
+
+            // Create squares for second SVG but keep them hidden initially
+            svg2Squares = await createSquares('einstein2.svg', svg2Container);
+            svg2Container.classList.add('hidden');
+
+        } catch (error) {
+            console.error('Error initializing animation:', error);
         }
     }
 
-    function createTiles() {
-        // Calculate offsets to center the images within the canvas
-        const offsetX1 = (canvasWidth - img1.width) / 2;
-        const offsetY1 = (canvasHeight - img1.height) / 2;
+    // Initialize the animation on page load
+    initializeAnimation();
 
-        const offsetX2 = (canvasWidth - img2.width) / 2;
-        const offsetY2 = (canvasHeight - img2.height) / 2;
+    // Handle hover events
+    animationContainer.addEventListener('mouseenter', () => {
+        if (animationInProgress || isHovered) return;
+        animationInProgress = true;
+        isHovered = true;
+        startHoverInAnimation();
+    });
 
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                const dx = col * tileWidth;
-                const dy = row * tileHeight;
+    animationContainer.addEventListener('mouseleave', () => {
+        if (animationInProgress || !isHovered) return;
+        animationInProgress = true;
+        isHovered = false;
+        startHoverOutAnimation();
+    });
 
-                const tileCenterX = dx + tileWidth / 2;
-                const tileCenterY = dy + tileHeight / 2;
-                const deltaX = tileCenterX - centerX;
-                const deltaY = tileCenterY - centerY;
-                const radius = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                const angle = Math.atan2(deltaY, deltaX);
+    /**
+     * Function to handle hover-in animation (first SVG to second SVG).
+     */
+    function startHoverInAnimation() {
+        // Phase 1: Animate first SVG's squares moving to center
+        svg1Squares.forEach(square => {
+            const rotation = square.dataset.rotation;
+            const currentX = parseFloat(square.style.left) + squareWidth / 2;
+            const currentY = parseFloat(square.style.top) + squareHeight / 2;
 
-                tiles.push({
-                    // Source positions for both images
-                    sx1: dx - offsetX1,
-                    sy1: dy - offsetY1,
-                    sx2: dx - offsetX2,
-                    sy2: dy - offsetY2,
-                    dx: dx,
-                    dy: dy,
-                    initialRadius: radius,
-                    initialAngle: angle,
-                });
-            }
-        }
-    }
+            // Calculate translation towards the center using golden ratio path
+            const targetX = (containerWidth / 2 - currentX);
+            const targetY = (containerHeight / 2 - currentY);
 
-    function handleMouseMove(e) {
-        const rect = canvas.getBoundingClientRect();
-        const mouseX = e.clientX - rect.left;
-        const mouseY = e.clientY - rect.top;
+            // Apply rotation and translation with scaling
+            square.style.transform = `translate(${targetX}px, ${targetY}px) rotate(${rotation}deg) scale(0.1)`;
+            square.style.opacity = '0';
+        });
 
-        const dx = mouseX - centerX;
-        const dy = mouseY - centerY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        const maxDistance = Math.sqrt(centerX * centerX + centerY * centerY);
-        const proximity = 1 - Math.min(distance / maxDistance, 1);
+        // Grow the black circle
+        blackCircle.classList.add('grow');
 
-        // Cancel any pending animation frames
-        if (animationFrameId) {
-            cancelAnimationFrame(animationFrameId);
-        }
-        animationFrameId = requestAnimationFrame(() => animate(proximity));
-    }
+        // After Phase 1 duration, switch to second SVG
+        setTimeout(() => {
+            // Hide first SVG's container
+            svg1Container.classList.add('hidden');
 
-    function animate(proximity) {
-        if (!isImagesLoaded) return;
+            // Show second SVG's container
+            svg2Container.classList.remove('hidden');
 
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+            // Phase 2: Animate second SVG's squares moving out from center
+            svg2Squares.forEach(square => {
+                const rotation = square.dataset.rotation;
+                // Calculate explosion direction influenced by golden angle
+                const angle = parseInt(square.dataset.rotation) % 360;
+                const distance = containerWidth / 2; // Maximum distance to move
 
-        const maxRadius = Math.min(canvasWidth, canvasHeight) / 2;
+                const translateX = Math.cos(angle * (Math.PI / 180)) * distance;
+                const translateY = Math.sin(angle * (Math.PI / 180)) * distance;
 
-        if (currentPhase === 'first') {
-            // Adjusted proximity for speed
-            const adjustedProximity = Math.min(
-                (proximity / PROXIMITY_THRESHOLD) * SPEEDUP_FACTOR_FIRST,
-                1
-            );
-
-            // Draw black circle first so tiles appear on top
-            if (proximity > 0) {
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, proximity * (maxRadius / 2), 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            tiles.forEach(tile => {
-                // Golden ratio spiral parameters
-                const b = Math.log(GOLDEN_RATIO) / (2 * Math.PI); // Determines the spiral tightness
-
-                // Calculate new angle and radius
-                const newAngle = tile.initialAngle + adjustedProximity * 4 * Math.PI; // Rotate 2 full turns
-                const newRadius = tile.initialRadius * Math.exp(-b * adjustedProximity * 4 * Math.PI);
-
-                // Convert polar to Cartesian coordinates
-                const x = centerX + newRadius * Math.cos(newAngle) - tile.dx - tileWidth / 2;
-                const y = centerY + newRadius * Math.sin(newAngle) - tile.dy - tileHeight / 2;
-
-                // Scaling from 100% to 25%
-                const scale = 1 - adjustedProximity * 0.75; // Shrink from 100% to 25%
-
-                // Rotation (optional, can be kept if desired)
-                const rotation = adjustedProximity * 4 * Math.PI; // Rotate 2 full turns
-
-                ctx.save();
-                ctx.translate(tile.dx + x + tileWidth / 2, tile.dy + y + tileHeight / 2);
-                ctx.rotate(rotation);
-                ctx.scale(scale, scale);
-                ctx.drawImage(
-                    img1, // Now using img1 (einstein2.jpg)
-                    tile.sx1,
-                    tile.sy1,
-                    tileWidth,
-                    tileHeight,
-                    -tileWidth / 2,
-                    -tileHeight / 2,
-                    tileWidth,
-                    tileHeight
-                );
-                ctx.restore();
+                // Animate to explode out with rotation
+                square.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotation}deg) scale(1)`;
+                square.style.opacity = '1';
             });
 
-            // Check if we should switch to the second phase
-            if (adjustedProximity >= 1) {
-                currentPhase = 'second';
-            }
-        } else if (currentPhase === 'second') {
-            // Reverse to first phase if proximity decreases
-            if (proximity < PROXIMITY_THRESHOLD) {
-                currentPhase = 'first';
-                return;
-            }
+            // Shrink the black circle
+            blackCircle.classList.remove('grow');
+            blackCircle.classList.add('shrink');
 
-            // Adjust proximity for second phase
-            const adjustedDuration = (1 - PROXIMITY_THRESHOLD) / SPEEDUP_FACTOR_SECOND; // Speed up by 25%
-            const adjustedProximity = Math.min(
-                (proximity - PROXIMITY_THRESHOLD) / adjustedDuration,
-                1
-            );
+            // After Phase 2 duration, reset black circle and end animation
+            setTimeout(() => {
+                blackCircle.classList.remove('shrink');
+                animationInProgress = false;
+            }, 2000); // Duration matches the CSS transition
+        }, 2000); // Phase 1 duration
+    }
 
-            // Draw black circle first so tiles appear on top
-            if (proximity > 0) {
-                ctx.fillStyle = 'black';
-                ctx.beginPath();
-                ctx.arc(centerX, centerY, (1 - proximity) * (maxRadius / 2), 0, Math.PI * 2);
-                ctx.fill();
-            }
+    /**
+     * Function to handle hover-out animation (second SVG to first SVG).
+     */
+    function startHoverOutAnimation() {
+        // Phase 1: Animate second SVG's squares moving to center
+        svg2Squares.forEach(square => {
+            const rotation = square.dataset.rotation;
+            const currentX = parseFloat(square.style.left) + squareWidth / 2;
+            const currentY = parseFloat(square.style.top) + squareHeight / 2;
 
-            tiles.forEach(tile => {
-                // Tiles start centered and expand to their original positions
-                const xOffset = (tile.dx + tileWidth / 2 - centerX) * adjustedProximity;
-                const yOffset = (tile.dy + tileHeight / 2 - centerY) * adjustedProximity;
+            // Calculate translation towards the center using golden ratio path
+            const targetX = (containerWidth / 2 - currentX);
+            const targetY = (containerHeight / 2 - currentY);
 
-                const x = centerX + xOffset - (tile.dx + tileWidth / 2);
-                const y = centerY + yOffset - (tile.dy + tileHeight / 2);
+            // Apply rotation and translation with scaling
+            square.style.transform = `translate(${targetX}px, ${targetY}px) rotate(${rotation}deg) scale(0.1)`;
+            square.style.opacity = '0';
+        });
 
-                // Calculate scale
-                const scale = 0.25 + adjustedProximity * 0.85; // Expand from 25% to 110%
+        // Grow the black circle
+        blackCircle.classList.add('grow');
 
-                ctx.save();
-                ctx.translate(tile.dx + x + tileWidth / 2, tile.dy + y + tileHeight / 2);
-                ctx.scale(scale, scale);
-                ctx.drawImage(
-                    img2, // Now using img2 (einstein1.jpg)
-                    tile.sx2,
-                    tile.sy2,
-                    tileWidth,
-                    tileHeight,
-                    -tileWidth / 2,
-                    -tileHeight / 2,
-                    tileWidth,
-                    tileHeight
-                );
-                ctx.restore();
+        // After Phase 1 duration, switch back to first SVG
+        setTimeout(() => {
+            // Hide second SVG's container
+            svg2Container.classList.add('hidden');
+
+            // Show first SVG's container
+            svg1Container.classList.remove('hidden');
+
+            // Phase 2: Animate first SVG's squares moving out from center
+            svg1Squares.forEach(square => {
+                const rotation = square.dataset.rotation;
+                // Calculate explosion direction influenced by golden angle
+                const angle = parseInt(square.dataset.rotation) % 360;
+                const distance = containerWidth / 2; // Maximum distance to move
+
+                const translateX = Math.cos(angle * (Math.PI / 180)) * distance;
+                const translateY = Math.sin(angle * (Math.PI / 180)) * distance;
+
+                // Animate to explode out with rotation
+                square.style.transform = `translate(${translateX}px, ${translateY}px) rotate(${rotation}deg) scale(1)`;
+                square.style.opacity = '1';
             });
-        }
+
+            // Shrink the black circle
+            blackCircle.classList.remove('grow');
+            blackCircle.classList.add('shrink');
+
+            // After Phase 2 duration, reset black circle and end animation
+            setTimeout(() => {
+                blackCircle.classList.remove('shrink');
+                animationInProgress = false;
+            }, 2000); // Duration matches the CSS transition
+        }, 2000); // Phase 1 duration
     }
 });

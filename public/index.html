@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Hugh York Times</title>
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Link to Favicon (Optional) -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <!-- Header -->
@@ -38,12 +41,19 @@
             <p>Using a unique blend of mathematical precision and creative problem-solving, Hugh is revolutionizing the way we think about programming...</p>
         </div>
 
-        <!-- Main column with headline and updated Canvas animation -->
+        <!-- Main column with headline and updated SVG animation -->
         <div class="main-column">
             <h2 class="headline">Introducing Hugh, a High School Computer Science Student—The New Einstein?</h2>
-            <!-- Updated Canvas animation container -->
-            <div class="canvas-animation-container" id="canvas-animation">
-                <canvas id="animationCanvas" width="600" height="400"></canvas>
+            <!-- Updated Animation Container -->
+            <div class="animation-container" id="animation-container">
+                <!-- Black Circle -->
+                <div class="black-circle" id="black-circle"></div>
+                
+                <!-- First SVG Squares -->
+                <div class="svg-container" id="svg1-container"></div>
+                
+                <!-- Second SVG Squares -->
+                <div class="svg-container hidden" id="svg2-container"></div>
             </div>
         </div>
 
