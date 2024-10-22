@@ -2,21 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hugh York Times</title>
-    <!-- Link to external stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <!-- Link to Google Fonts for Cheltenham font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cheltenham:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Header section with title and subheading -->
+    <!-- Header -->
     <div class="header">
         <h1 class="nyt-title">Hugh York Times</h1>
         <p class="sub-heading">All the Stimulation That's Fit to Print</p>
     </div>
 
-    <!-- Information bar with issue details, date, and price -->
+    <!-- Info Bar -->
     <div class="info-bar">
         <div class="issue-details">
             <p>VOL. CXXIV</p>
@@ -30,49 +26,38 @@
         </div>
     </div>
 
-    <!-- Main content area with three columns -->
+    <!-- Content -->
     <div class="content">
-        <!-- Left column with side stories -->
         <div class="left-column">
             <h3 class="side-headline">Rise of a Genius: How Hugh's Dedication Mirrors Einstein's Journey</h3>
-            <p>In recent years, Hugh, a high school computer science student, has become known for his deep insights into algorithmic complexity and artificial intelligence. Much like Einstein's breakthroughs, Hugh's ideas are pushing the boundaries of what's possible in computing.</p>
+            <p>In recent years, Hugh, a high school computer science student, has become known for his deep insights into algorithmic complexity and artificial intelligence...</p>
             
             <hr class="divider">
 
             <h3 class="side-headline">Code Like Einstein: The Formula for Hugh's Success</h3>
-            <p>Using a unique blend of mathematical precision and creative problem solving, Hugh is revolutionizing the way we think about programming. Could his work be the next step toward a new computing paradigm?</p>
+            <p>Using a unique blend of mathematical precision and creative problem-solving, Hugh is revolutionizing the way we think about programming...</p>
         </div>
 
-        <!-- Main column with headline and image transition -->
+        <!-- Main column with headline and updated Canvas animation -->
         <div class="main-column">
             <h2 class="headline">Introducing Hugh, a High School Computer Science Student—The New Einstein?</h2>
-            
-            <!-- Image Transition SVG container -->
-            <div class="image-transition">
-                <svg id="image-container" width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                    <defs>
-                        <clipPath id="imageMask">
-                            <rect width="100" height="100" />
-                        </clipPath>
-                    </defs>
-                    <g clip-path="url(#imageMask)" id="image-group"></g>
-                </svg>
+            <!-- Updated Canvas animation container -->
+            <div class="canvas-animation-container" id="canvas-animation">
+                <canvas id="animationCanvas" width="600" height="400"></canvas>
             </div>
         </div>
 
-        <!-- Right column with additional side stories -->
         <div class="right-column">
             <h3 class="side-headline">The Next Genius: Hugh's Breakthrough in Machine Learning</h3>
-            <p>Experts are saying that Hugh's innovative approach to machine learning is opening new doors to advancements in AI, similar to how Einstein changed the face of physics a century ago.</p>
+            <p>Experts are saying that Hugh's innovative approach to machine learning is opening new doors...</p>
             
             <hr class="divider">
 
             <h3 class="side-headline">Can Hugh's Theories Revolutionize Tech?</h3>
-            <p>Just as relativity reshaped our understanding of the universe, Hugh's theories are expected to reshape the future of tech as we know it, with massive implications for quantum computing and beyond.</p>
+            <p>Just as relativity reshaped our understanding of the universe, Hugh's theories are expected to reshape the future of tech...</p>
         </div>
     </div>
 
-    <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
