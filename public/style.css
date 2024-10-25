@@ -47,10 +47,6 @@ body {
     font-size: 0.9rem;
 }
 
-.issue-details p, .date-and-location p, .price p {
-    margin: 0;
-}
-
 .content {
     display: flex;
     max-width: 1200px;
@@ -79,31 +75,101 @@ body {
     margin-bottom: 30px;
 }
 
-.canvas-animation-container {
-    width: 100%;
-    max-width: 600px;
-    height: 400px;
-    margin: 0 auto;
+.animation-container {
     position: relative;
+    width: 600px; /* Adjust as needed */
+    height: 600px; /* Adjust as needed */
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+/* Black Circle Styling */
+.black-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0px;
+    height: 0px;
+    background-color: #000;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 2s ease, height 2s ease;
+    z-index: 1; /* Ensure the circle is below the squares */
+}
+
+/* Grow the Black Circle */
+.black-circle.grow {
+    width: 300px; /* Half of the animation-container size */
+    height: 300px;
+}
+
+/* Shrink the Black Circle */
+.black-circle.shrink {
+    width: 0px;
+    height: 0px;
+}
+
+/* Square Pieces Styling */
+.square {
+    position: absolute;
+    width: 60px; /* Adjust based on grid size (600px / 10 cols = 60px) */
+    height: 60px; /* Adjust based on grid size */
+    background-size: 600px 600px; /* Should match the animation-container size */
+    transition: transform 2s cubic-bezier(0.68, -0.55, 0.265, 1.55), opacity 2s ease;
+    z-index: 2; /* Ensure squares are above the black circle */
+    opacity: 1;
+    pointer-events: none; /* Allow mouse events to pass through */
+    transform-origin: center;
+}
+
+/* Hidden State for Second SVG */
+.hidden {
+    display: none;
+}
+
+/* Show Second SVG Container */
+.show {
+    display: block;
+}
+
+.animation-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
     overflow: hidden;
     background-color: #f0f0f0;
 }
 
-.divider {
-    border: 1px solid #000;
-    margin: 20px 0;
+.image-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
 }
 
-.side-headline {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 10px;
+.image-tile {
+    position: absolute;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    will-change: transform, opacity;
 }
 
-.issue-details, .date-and-location, .price {
-    font-size: 0.9rem;
+.hidden {
+    display: none;
+}
+/* Grow the Black Circle */
+.black-circle.grow {
+    width: 300px;
+    height: 300px;
 }
 
-.issue-details p, .date-and-location p, .price p {
-    margin: 0;
+/* Shrink the Black Circle */
+.black-circle.shrink {
+    width: 0px;
+    height: 0px;
 }
+
