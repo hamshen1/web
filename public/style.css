@@ -133,11 +133,43 @@ body {
     display: block;
 }
 
-/* Optional: Prevent overflow of squares during animation */
-.animation-container .svg-container {
+.animation-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #f0f0f0;
+}
+
+.image-grid {
     position: absolute;
     top: 0;
     left: 0;
-    width: 600px;
-    height: 600px;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
 }
+
+.image-tile {
+    position: absolute;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+.hidden {
+    display: none;
+}
+/* Grow the Black Circle */
+.black-circle.grow {
+    width: 300px;
+    height: 300px;
+}
+
+/* Shrink the Black Circle */
+.black-circle.shrink {
+    width: 0px;
+    height: 0px;
+}
+
