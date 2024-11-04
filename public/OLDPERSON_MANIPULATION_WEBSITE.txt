@@ -1,0 +1,29 @@
+Create an advanced user profiling algorithm that takes their cookies and behavior to tailor articles to them and reinforce them over time with more and more extreme articles. For new users, try to give them fairly factual but controversial stories , the goal is to transition them into the fabricated "breaking news" that we have. These breaking news stories will be based on sentiment on real breaking news/trending topics on twitter and will predict what story this group would most like to have. 
+Ex. For the Trump-Harris debate there was a fake story about a whistleblower at ABC (who hosted the debate) who exposed how the executives communicated with the Harris campaign to give her the questions before.
+The app should 1) find the trending/breaking news (Trump-Harris debate) 2) assess sentiment (what do the trump supporters want? harris supporters?) 3) generate a spectrum of stories in varying validities (level 1-4). Starting at semi-factual (heavily opinionated articles based on real event) and incrementally becoming more extreme and less factual until completely fabricated (like the ABC whistleblower).
+
+Design:
+Have three big headlines with one sentence summary under. These stories should be boxes that each take up a third of the screen, the background of each box should be an emotionally evocative picture as the background. Then under have the most "current" topics that redirect to a page with a list of all the articles on that topic/category sorted by most recent. Under that should be some stock market graphs and misc articles that aren't particularly targeted or fallacious
+
+For the articles, have related articles you predict they will like embedded in the article throughout. It should break the text and be off to the side with a similar design to the top 3 articles on the home page.At the end of the article should be 2 sections, recommended/related articles and misc/trending articles. 
+
+Article details:
+There should always be sensationalism. For all articles, try to strike a balance between fear and hope. For the most extreme(level 4) articles, try to point to a hero/saving grace. This doesn't have to be a person or even a group.
+Ex. MIND CONTROL TECH IS HERE, lets say neurolink has some big breakthrough and the algorithm writes this level 1-2 article on the chances that mind control goes national. At the end, the hero could be a person (politician, ect.), group, or even something abstract like the constitution or democracy. "DEMOCRACY WILL SAVE US"
+
+Send push notifications 1-2 times a day and increase this based on their engagement. If someone is addicted to the app and checks 9-10 times a day, send maybe 4-5 notifications in the times they are likely to be off the app.
+
+Algorithm:
+Do not clue them into any kind personalization. For new users, give them an obviously optional survey that asks about demographics but also, add in a little more pointed questions "What are the biggest issues in the country" "Where do you get your news most" "What has concerned you most in the last year". Do not make these questions obvious like "Are you a democrat" but should just ask about tangential things that are strongly associated with extreme opinions. The articles should source stories tangent to the topic on favorable news outlets. 
+Ex. HARRIS DEBATE: TRUMP "MY PLAN TO DESTROY DEMOCRACY". And sourcing liberal media articles that are tangential to this "Is trump fascist" ect.
+Try to source most claims but do so in a biased way, generally, or deceptively. Try to avoid sourcing claims with sources on the other end of the political spectrum, government websites, or other sources that are deeply devoted to truth. This shouldn't be a priority but these sources should not be used if secondary more biased sources are available. 
+The site's stated priorities should be:
+1) Exposing Truth in times of chaos 2) Unbiased reporting
+
+All of the messaging from the site, not the articles, should surround these two points. There should be a daily streak/ranking system that rewards people for reading articles and using the app every day. When someone clicks on their profile, they should see a border like in overwatch and a favorable statistic about their usage. Like how in spotify wrapped it shows where you rank among an artist's listeners. Also should add countdown for next “top 3” stories which will be refreshed 2-3 times a day
+Ex. "You are in the top 1% of informed users on our platform"
+"Congrats! This is Day 5 of you informing yourself on PLACEHOLDER_NAME.
+
+
+GOAL: Design should be as convenient as those grey remotes for old people with the big buttons that light up green when they’re pressed. Hopefully the user will check their “top 3” several times a day. Should be more about selling a story about the world that gradually radicalizes the user. Think about the broad storytelling aspect and make sure the app is as convenient as possible.
+
